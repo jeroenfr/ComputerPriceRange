@@ -1,0 +1,6 @@
+{'classifier__max_features': 0.2, 'classifier__min_samples_leaf': 1, 'classifier__n_estimators': 500}
+-169.6942060470853
+
+#grote run
+{'classifier__ccp_alpha': 0.01, 'classifier__max_features': 0.15, 'classifier__max_samples': None, 'classifier__min_samples_leaf': 1, 'classifier__n_estimators': 500, 'classifier__oob_score': True}
+-151.45903496625303
