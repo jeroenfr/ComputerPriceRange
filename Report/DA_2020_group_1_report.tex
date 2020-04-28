@@ -1,0 +1,101 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[hmargin=2cm,vmargin=2cm]{geometry}
+\usepackage{hyperref}
+% added Hans
+
+
+\title{\textbf{Advanced Analytics in Business / Big Data Platforms \& Technologies: Lab Report Group 1}}
+\author{Jeroen Frans, Jari Peeperkorn, Steven Van Goidsenhoven, Wouter Dossche, Hans Weytjens}
+
+\begin{document}
+
+\maketitle
+
+% ASSIGNMENT 1
+\section{Assignment 1: paper review}
+
+
+% ASSIGNMENT 2
+\pagebreak
+\section{Assignment 2: predictive modeling}
+
+\subsection{Exploratory Analysis of the Data}
+\begin{itemize}
+\item small dataset, many variables
+\end{itemize}
+
+\subsection{Preprocessing}
+\begin{itemize}
+\item reduce number of categorical levels
+\item eliminate features (correlation matrix not all that helpful)
+\item log
+\item 1. data selection: decided against using external data
+\item 2. exploration: used correlation plots, histograms (for targets)
+\item 3. cleaning: eg. capital to small..., filling missing values (making sure it works on unseen data ``other'')
+\item 4. transformations: logs, categoricals one-hot, skewness correction
+\item 5. feature engineering: string splits of cat vars, ...
+\item 6. feature selection: correlation matrix (and later in process feature importance analysis in models)
+\end{itemize}
+
+\subsection{Models}
+\begin{itemize}
+\item it's a regression problem
+\item goal: achieve performance difference on different parts of domain, so that ensemble benefits
+\item used Huber (=automatic MAE), support vector machine, random forest regression (quintessential bagging technique), gradient boosting regression, k-nearest neighbors, extreme gradient boosting regressor
+\item tested and rejected MLP,  RANSAC, SGD regressor
+\item adding more models did not help ensemble. Probably to similar. A really different one could have helped
+\item regularization: used in all models, important parameter / also pruning
+\end{itemize}
+
+\subsection{Ensemble}
+\begin{itemize}
+\item linear combination, parameters computed with Huber regression: didn't matter all that much
+\item brought 10 points (compared to best model)
+\end{itemize}
+
+\subsection{Evaluation}
+\begin{itemize}
+\item selection of metric, score measure: MAE  (for models) which is what Seppe error (for ensemble) is. But some models (random forest, gradient boosting) only optimize for accuracy!
+\item out-of-sample
+\item models and ensemble (?): 10-fold cross-validation (not a test set, because of small dataset size), NO optimization on 50\% test set 
+\end{itemize}
+
+\subsection{Approach}
+\begin{itemize}
+\item min\_price, max\_price: separately. But ended up using same models for them, but different parameters in the ensemble
+\item iterative
+\item feature importance analysis: somehow helpful, known caveats (p. 6.36)
+\item models optimzed separately, stacked approach inefficient (at least when including hyperparameter tuning for the constituting models)
+\item prediction average of 10 to reduce variance
+\end{itemize}
+
+\subsection{Results and Post-Mortem Analysis}
+\begin{itemize}
+\item why we fell back KISS (Seppe). We don't have KISS, but hoped ensemble would robust against overfitting and noise whilst increasing performance
+\item winning group: more feature design. Models don't make so much difference
+\item what we did not do: outlier analysis (anomaly detection), introduce domain knowledge, binning (categorical vars or outliers),  revisit choice of min\_price, max\_price: separately, regression performance (p 4.56: check residuals, variables with extreme coefficients, sign of coefficients), opening the black box (other than feature importance)
+\end{itemize}
+
+\subsection{Tools}
+We used Python in Jupyter Notebooks, sharing our work via GitHub. We relied heavily on scikit-learn (sklearn) for our models and pipelines. We found  the sklearn models libraries very well stocked with performant yet flexible (many useful hyperparameters) models. The sklearns pipelines ar an excellent tool to streamline the XXX process. Implementing custom-made models is still relatively easy. Unfortunately, information cannot be passed between the steps in a pipeline, and the number of columns cannot be reduced. Therefore, some wrapping was required to\\
+Problem: shared\_reformat: preprocessing done on training and evaluation set (in cross validation terms) together ????
+
+\subsection{Other}
+\begin{itemize}
+\item explain why so many attempts on leaderboard
+\item do some of the `what we did not do' now?
+\end{itemize}
+
+
+% ASSIGNMENT 3
+\pagebreak
+\section{Assignment 3: Spark Streaming with text}
+
+
+
+% ASSIGNMENT 4
+\pagebreak
+\section{Assignment 4: ??}
+\end{document}
+
+
